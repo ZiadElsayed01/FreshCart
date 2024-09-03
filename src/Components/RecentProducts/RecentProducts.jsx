@@ -54,7 +54,7 @@ export default function RecentProducts() {
   return (
     <>
       <div className="recentproducts my-40 md:my-14">
-        <h1 className="text-5xl text-center text-emerald-600 font-semibold mb-3">
+        <h1 className="text-5xl text-center text-emerald-600 font-semibold mb-5">
           Our Products
         </h1>
         {products.length > 0 ? (

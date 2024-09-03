@@ -30,7 +30,7 @@ export default function Brands() {
   return (
     <>
       <div className="catogries mt-40 md:mt-14">
-        <h1 className="text-5xl text-center text-emerald-600 font-semibold mb-3">
+        <h1 className="text-5xl text-center text-emerald-600 font-semibold mb-5">
           Our Brands
         </h1>
         {brands.length > 0 ? (

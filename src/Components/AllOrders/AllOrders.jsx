@@ -4,6 +4,7 @@ import axios from "axios";
 export default function AllOrders() {
   const [userID, setuserID] = useState("");
   const [orders, setorders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   async function getId() {
     try {
@@ -19,6 +20,7 @@ export default function AllOrders() {
       setuserID(res.data.decoded.id);
     } catch (err) {
       console.error(err);
+      setLoading(false);
     }
   }
 
@@ -30,6 +32,8 @@ export default function AllOrders() {
       setorders(res.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -45,12 +49,17 @@ export default function AllOrders() {
 
   return (
     <>
-      {orders && orders.length > 0 ? (
+      {loading ? (
+        <span className="loader my-40 block mx-auto"></span>
+      ) : orders && orders.length > 0 ? (
         <div className="orders my-40 md:my-14">
+          <h1 className="text-5xl text-center text-emerald-600 font-semibold mb-5">
+            Orders
+          </h1>
           {orders.map((order) => (
             <div
               key={order.id}
-              className="order bg-white shadow-lg rounded-lg p-6 mb-6"
+              className="order bg-white border border-emerald-600 rounded-lg p-6 mb-6"
             >
               <div className="details flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
                 <div>
@@ -72,7 +81,7 @@ export default function AllOrders() {
                 {order.cartItems.map((item) => (
                   <div
                     key={item._id}
-                    className="cartItem flex items-center flex-col md:flex-row gap-8 border-t border-gray-200 pt-3"
+                    className="cartItem flex items-center flex-col md:flex-row gap-8 border-t border-emerald-600 py-3"
                   >
                     <div className="image">
                       <img
@@ -112,8 +121,6 @@ export default function AllOrders() {
             </div>
           ))}
         </div>
-      ) : orders ? (
-        <span className="loader my-40 block mx-auto"></span>
       ) : (
         <h1 className="text-emerald-600 font-semibold text-3xl md:text-4xl my-24 md:my-32 w-11/12 md:w-3/4 mx-auto text-center p-5">
           No Orders

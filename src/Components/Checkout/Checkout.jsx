@@ -27,8 +27,14 @@ export default function Checkout() {
   });
 
   async function handleCheckout(cartId, url) {
-    let { data } = await checkout(cartId, url, formik.values);
-    window.location.href = data.session.url;
+    setisLoading(true);
+    try {
+      let { data } = await checkout(cartId, url, formik.values);
+      window.location.href = data.session.url;
+    } catch (error) {
+      console.error(error);
+    }
+    setisLoading(false);
   }
 
   return (

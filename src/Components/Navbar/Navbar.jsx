@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import logo from "../../assets/freshcart-logo.svg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
@@ -8,9 +8,15 @@ import { WishContext } from "../../Context/WishContext";
 export default function Navbar() {
   let { user, setUser } = useContext(UserContext);
   let { cartItems } = useContext(CartContext);
-  let { wishItems } = useContext(WishContext);
+  let { wishItems, getUserWish } = useContext(WishContext);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      getUserWish();
+    }
+  }, [user]);
 
   function handleSignout() {
     localStorage.removeItem("userToken");
@@ -65,34 +71,40 @@ export default function Navbar() {
               <i className="fa-brands fa-linkedin text-emerald-600"></i>
               <i className="fa-brands fa-youtube text-emerald-600"></i>
             </div>
-            <div className="links flex gap-3">
+            <div className="links flex gap-3 items-center">
               {user ? (
                 <>
-                  <NavLink to="/wishlist" className="text-lg relative">
+                  <NavLink to="/wishlist" className="text-lg relative mr-3">
                     <i className="fa-solid fa-heart"></i>
-                    <div className="absolute top-[-10px] right-[-10px] w-5 h-5 bg-emerald-600 flex items-center justify-center text-white rounded-full">
+                    <div className="text-md absolute top-[-10px] right-[-15px] w-6 h-6 bg-emerald-600 flex items-center justify-center text-white rounded-full">
                       {wishItems}
                     </div>
                   </NavLink>
-                  <NavLink to="/cart" className="text-lg relative">
+                  <NavLink to="/cart" className="text-lg relative mr-3">
                     <i className="fa-solid fa-cart-shopping"></i>
-                    <div className="absolute top-[-10px] right-[-10px] w-5 h-5 bg-emerald-600 flex items-center justify-center text-white rounded-full">
+                    <div className="text-md absolute top-[-10px] right-[-15px] w-6 h-6 bg-emerald-600 flex items-center justify-center text-white rounded-full">
                       {cartItems}
                     </div>
                   </NavLink>
                   <span
                     onClick={handleSignout}
-                    className="text-lg cursor-pointer"
+                    className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-900 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center cursor-pointer"
                   >
                     Sign Out
                   </span>
                 </>
               ) : (
                 <>
-                  <Link to="/login" className="text-lg">
+                  <Link
+                    to="/login"
+                    className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-900 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center"
+                  >
                     Login
                   </Link>
-                  <Link to="/register" className="text-lg">
+                  <Link
+                    to="/register"
+                    className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-900 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center"
+                  >
                     Register
                   </Link>
                 </>

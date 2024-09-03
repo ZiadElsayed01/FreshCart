@@ -33,7 +33,7 @@ export default function Categories() {
   return (
     <>
       <div className="catogries my-40 md:mt-14">
-        <h1 className="text-5xl text-center text-emerald-600 font-semibold mb-3">
+        <h1 className="text-5xl text-center text-emerald-600 font-semibold mb-5">
           Our Categories
         </h1>
         {categories.length > 0 ? (
