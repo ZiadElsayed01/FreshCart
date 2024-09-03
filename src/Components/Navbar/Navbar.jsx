@@ -1,0 +1,106 @@
+import React, { useContext } from "react";
+import logo from "../../assets/freshcart-logo.svg";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { UserContext } from "../../Context/UserContext";
+import { CartContext } from "../../Context/CartContenxt";
+import { WishContext } from "../../Context/WishContext";
+
+export default function Navbar() {
+  let { user, setUser } = useContext(UserContext);
+  let { cartItems } = useContext(CartContext);
+  let { wishItems } = useContext(WishContext);
+
+  const navigate = useNavigate();
+
+  function handleSignout() {
+    localStorage.removeItem("userToken");
+    setUser(null);
+    navigate("/login");
+  }
+
+  return (
+    <>
+      <nav className="bg-slate-100 fixed top-0 left-0 right-0 z-50 shadow-lg">
+        <div className="max-w-screen-xl flex flex-wrap items-center mx-auto px-3 py-4 justify-center lg:justify-between">
+          <div className="flex items-center gap-3 mb-3 lg:mb-0 flex-col md:flex-row">
+            <Link to="/" className="flex items-center space-x-3">
+              <img src={logo} width={120} className="h-8" alt="Logo" />
+            </Link>
+            {user && (
+              <ul className="flex gap-3 items-center">
+                <li>
+                  <NavLink to="/" className="text-lg">
+                    Home
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/products" className="text-lg">
+                    Products
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/categories" className="text-lg">
+                    Categories
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/brands" className="text-lg">
+                    Brands
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/allorders" className="text-lg">
+                    Orders
+                  </NavLink>
+                </li>
+              </ul>
+            )}
+          </div>
+          <div className="flex items-center space-x-6">
+            <div className="icons flex gap-5 items-center">
+              <i className="fa-brands fa-instagram text-emerald-600"></i>
+              <i className="fa-brands fa-facebook text-emerald-600"></i>
+              <i className="fa-brands fa-tiktok text-emerald-600"></i>
+              <i className="fa-brands fa-twitter text-emerald-600"></i>
+              <i className="fa-brands fa-linkedin text-emerald-600"></i>
+              <i className="fa-brands fa-youtube text-emerald-600"></i>
+            </div>
+            <div className="links flex gap-3">
+              {user ? (
+                <>
+                  <NavLink to="/wishlist" className="text-lg relative">
+                    <i className="fa-solid fa-heart"></i>
+                    <div className="absolute top-[-10px] right-[-10px] w-5 h-5 bg-emerald-600 flex items-center justify-center text-white rounded-full">
+                      {wishItems}
+                    </div>
+                  </NavLink>
+                  <NavLink to="/cart" className="text-lg relative">
+                    <i className="fa-solid fa-cart-shopping"></i>
+                    <div className="absolute top-[-10px] right-[-10px] w-5 h-5 bg-emerald-600 flex items-center justify-center text-white rounded-full">
+                      {cartItems}
+                    </div>
+                  </NavLink>
+                  <span
+                    onClick={handleSignout}
+                    className="text-lg cursor-pointer"
+                  >
+                    Sign Out
+                  </span>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" className="text-lg">
+                    Login
+                  </Link>
+                  <Link to="/register" className="text-lg">
+                    Register
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
+}
