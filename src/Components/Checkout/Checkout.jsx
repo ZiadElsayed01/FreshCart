@@ -1,12 +1,20 @@
 import React, { useContext, useState } from "react";
-import { useFormik } from "formik";
-import axios from "axios";
-import { Link } from "react-router-dom";
 import { CartContext } from "../../Context/CartContenxt";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export default function Checkout() {
   const [isLoading, setisLoading] = useState(false);
   let { checkout, cartId } = useContext(CartContext);
+
+  let validationSchema = Yup.object().shape({
+    details: Yup.string().required("Email is required"),
+    phone: Yup.string()
+      .matches(/^01[0125][0-9]{8}$/, "Invalid phone number")
+      .max(11, "Max length is 11")
+      .required("Phone is required"),
+    city: Yup.string().required("City is required"),
+  });
 
   let formik = useFormik({
     initialValues: {
@@ -14,6 +22,7 @@ export default function Checkout() {
       phone: "",
       city: "",
     },
+    validationSchema,
     onSubmit: () => handleCheckout(cartId, `http://localhost:5173`),
   });
 
@@ -46,6 +55,14 @@ export default function Checkout() {
             >
               Details
             </label>
+            {formik.errors.details && formik.touched.details ? (
+              <div
+                className="p-4 text-red-800 rounded-lg bg-red-50 text-md text-center mt-3"
+                role="alert"
+              >
+                {formik.errors.details}
+              </div>
+            ) : null}
           </div>
           <div className="relative z-0 w-full mb-5 group">
             <input
@@ -64,6 +81,14 @@ export default function Checkout() {
             >
               Phone
             </label>
+            {formik.errors.phone && formik.touched.phone ? (
+              <div
+                className="p-4 text-red-800 rounded-lg bg-red-50 text-md text-center mt-3"
+                role="alert"
+              >
+                {formik.errors.phone}
+              </div>
+            ) : null}
           </div>
           <div className="relative z-0 w-full mb-5 group">
             <input
@@ -82,6 +107,14 @@ export default function Checkout() {
             >
               City
             </label>
+            {formik.errors.city && formik.touched.city ? (
+              <div
+                className="p-4 text-red-800 rounded-lg bg-red-50 text-md text-center mt-3"
+                role="alert"
+              >
+                {formik.errors.city}
+              </div>
+            ) : null}
           </div>
           <div className="flex items-center gap-3">
             <button

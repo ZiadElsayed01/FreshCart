@@ -15,13 +15,13 @@ export default function AllOrders() {
           },
         }
       );
-      
+
       setuserID(res.data.decoded.id);
     } catch (err) {
       console.error(err);
     }
   }
-  
+
   async function getOrders(userID) {
     try {
       const res = await axios.get(
