@@ -83,7 +83,7 @@ export default function CartContextProvider(props) {
 
   useEffect(() => {
     getUserCart();
-  }, [headers.token]);
+  }, []);
 
   return (
     <CartContext.Provider

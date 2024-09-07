@@ -21,7 +21,7 @@ export default function Register() {
         if (res.data.message == "success") {
           localStorage.setItem("userToken", res.data.token);
           setUser(res.data.token);
-          navigate("/login");
+          navigate("/");
         }
       })
       .catch((res) => {

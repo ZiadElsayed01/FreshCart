@@ -19,47 +19,67 @@ export default function Cart() {
   const [clearingCart, setClearingCart] = useState(false);
 
   async function getCartItems() {
-    const response = await getUserCart();
-    if (response?.data?.status === "success") {
-      setCartDetails(response.data.data);
-    } else {
-      toast.error("Failed to load cart items.");
+    setLoading(true);
+    try {
+      const response = await getUserCart();
+      if (response?.data?.status === "success") {
+        setCartDetails(response.data.data);
+      } else {
+        toast.error("Failed to load cart items.");
+      }
+    } catch (error) {
+      toast.error("An error occurred while loading cart items.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   async function updateProduct(id, count) {
     if (count < 1) return;
     setUpdatingProductId(id);
-    const response = await updateCartProduct(id, count);
-    if (response?.data?.status === "success") {
-      setCartDetails(response.data.data);
-      toast.success("Product Updated Successfully");
-    } else {
-      toast.error("Product Not Updated");
+    try {
+      const response = await updateCartProduct(id, count);
+      if (response?.data?.status === "success") {
+        setCartDetails(response.data.data);
+        toast.success("Product Updated Successfully");
+      } else {
+        toast.error("Product Not Updated");
+      }
+    } catch (error) {
+      toast.error("An error occurred while updating the product.");
+    } finally {
+      setUpdatingProductId(null);
     }
-    setUpdatingProductId(null);
   }
 
   async function deleteItem(productId) {
-    const response = await deleteCartItem(productId);
-    if (response?.data?.status === "success") {
-      setCartItems(cartItems - 1);
-      setCartDetails(response.data.data);
-      toast.success("Product Removed Successfully");
-    } else {
-      toast.error("Product Not Removed");
+    try {
+      const response = await deleteCartItem(productId);
+      if (response?.data?.status === "success") {
+        setCartItems(cartItems - 1);
+        setCartDetails(response.data.data);
+        toast.success("Product Removed Successfully");
+      } else {
+        toast.error("Product Not Removed");
+      }
+    } catch (error) {
+      toast.error("An error occurred while removing the product.");
     }
   }
 
   async function handleClearCart() {
     setClearingCart(true);
-    const response = await clearCart();
-    if (response?.data?.message === "success") {
-      setCartDetails(response.data.data);
-      toast.success("Cart Cleared Successfully");
-    } else {
-      toast.error("Failed to Clear Cart");
+    try {
+      const response = await clearCart();
+      if (response?.data?.message === "success") {
+        setCartDetails(response.data.data);
+        setCartItems(0);
+        toast.success("Cart Cleared Successfully");
+      } else {
+        toast.error("Failed to Clear Cart");
+      }
+    } catch (error) {
+      toast.error("An error occurred while clearing the cart.");
     }
     setClearingCart(false);
   }
@@ -72,7 +92,7 @@ export default function Cart() {
     <>
       {loading ? (
         <span className="loader my-40 block mx-auto"></span>
-      ) : cartDetails?.products.length > 0 ? (
+      ) : cartDetails?.products?.length > 0 ? (
         <div className="cart mt-40 md:mt-14">
           <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left">
@@ -198,28 +218,36 @@ export default function Cart() {
             </h1>
             <button
               onClick={handleClearCart}
-              className="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 mt-4 md:mt-0 rounded"
+              className="bg-red-600 hover:bg-red-800 text-white text-lg font-bold py-2 px-4 rounded-full"
               disabled={clearingCart}
             >
               {clearingCart ? (
-                <i className="fa fa-spinner fa-spin fa-xl"></i>
+                <i
+                  className="fa fa-spinner fa-spin"
+                  style={{ color: "#fff" }}
+                ></i>
               ) : (
                 "Clear Cart"
               )}
             </button>
           </div>
-          <div>
-            <Link to={`/checkout`}>
-              <button className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-900 font-medium rounded-lg text-md w-full px-5 py-3 text-center block my-3">
-                Checkout
-              </button>
-            </Link>
-          </div>
+          <Link to="/checkout">
+            <button className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-900 font-medium rounded-lg text-md w-full px-5 py-3 text-center block my-3">
+              Checkout
+            </button>
+          </Link>
         </div>
       ) : (
-        <h2 className="text-emerald-600 font-semibold text-3xl md:text-4xl my-24 md:my-32 w-11/12 md:w-3/4 mx-auto text-center p-5">
-          Empty Cart
-        </h2>
+        <div className="empty-cart-message text-center my-40">
+          <h2 className="text-emerald-600 text-lg md:text-4xl mb-3">
+            Empty Cart
+          </h2>
+          <Link to="/products">
+            <button className="btn bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded">
+              Go to Products
+            </button>
+          </Link>
+        </div>
       )}
     </>
   );

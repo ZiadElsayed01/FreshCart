@@ -4,7 +4,8 @@ import axios from "axios";
 export let WishContext = createContext();
 
 export default function WishContextProvider(props) {
-  const [wishItems, setwishItems] = useState([]);
+  const [wishItems, setwishItems] = useState(0);
+
   const headers = {
     token: localStorage.getItem("userToken"),
   };
@@ -44,7 +45,7 @@ export default function WishContextProvider(props) {
       })
       .catch((err) => err);
   }
-  
+
   useEffect(() => {
     getUserWish();
   }, []);

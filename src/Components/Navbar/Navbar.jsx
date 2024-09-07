@@ -7,16 +7,17 @@ import { WishContext } from "../../Context/WishContext";
 
 export default function Navbar() {
   let { user, setUser } = useContext(UserContext);
-  let { cartItems } = useContext(CartContext);
   let { wishItems, getUserWish } = useContext(WishContext);
+  let { cartItems, getUserCart } = useContext(CartContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
       getUserWish();
+      getUserCart();
     }
-  }, [user]);
+  }, [user, getUserWish, getUserCart]);
 
   function handleSignout() {
     localStorage.removeItem("userToken");
@@ -77,13 +78,13 @@ export default function Navbar() {
                   <NavLink to="/wishlist" className="text-lg relative mr-3">
                     <i className="fa-solid fa-heart"></i>
                     <div className="text-md absolute top-[-10px] right-[-15px] w-6 h-6 bg-emerald-600 flex items-center justify-center text-white rounded-full">
-                      {wishItems}
+                      {wishItems || 0}
                     </div>
                   </NavLink>
                   <NavLink to="/cart" className="text-lg relative mr-3">
                     <i className="fa-solid fa-cart-shopping"></i>
                     <div className="text-md absolute top-[-10px] right-[-15px] w-6 h-6 bg-emerald-600 flex items-center justify-center text-white rounded-full">
-                      {cartItems}
+                      {cartItems || 0}
                     </div>
                   </NavLink>
                   <span
