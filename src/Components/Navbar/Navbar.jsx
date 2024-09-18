@@ -64,7 +64,7 @@ export default function Navbar() {
             )}
           </div>
           <div className="flex items-center space-x-6">
-            <div className="icons flex gap-5 items-center">
+            <div className="icons flex gap-3 items-center">
               <i className="fa-brands fa-instagram text-emerald-600"></i>
               <i className="fa-brands fa-facebook text-emerald-600"></i>
               <i className="fa-brands fa-tiktok text-emerald-600"></i>
