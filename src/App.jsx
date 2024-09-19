@@ -83,7 +83,11 @@ let paths = createBrowserRouter([
       },
       {
         path: "allorders",
-        element: <AllOrders />,
+        element: (
+          <ProtectedRoute>
+            <AllOrders />,
+          </ProtectedRoute>
+        ),
       },
       {
         path: "forgetpassword",
