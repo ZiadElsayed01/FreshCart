@@ -61,6 +61,39 @@ export default function ProductDetails() {
     autoplaySpeed: 1500,
   };
 
+  var settings1 = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 1000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
     <>
       {product ? (
@@ -112,53 +145,52 @@ export default function ProductDetails() {
               <h1 className="text-emerald-600 text-2xl mb-3 font-bold ml-3">
                 Related Products
               </h1>
-              <div className="content flex flex-wrap shadow-gray-300 ">
-                {relatedproducts.map((product) => (
-                  <div
-                    key={product.id}
-                    className="w-full md:w-1/3 lg:w-1/4 xl:w-1/5 p-3"
-                  >
-                    <div className="product border border-emerald-600 rounded-lg overflow-hidden">
-                      <Link
-                        to={`/productdetails/${product.id}/${product.category.name}`}
-                      >
-                        <img
-                          className="w-full"
-                          src={product.imageCover}
-                          alt={product.title}
-                        />
-                        <div className="text p-3">
-                          <h2 className="text-emerald-600 text-2xl mb-3">
-                            {product.category.name}
-                          </h2>
-                          <h3 className="text-lg font-semibold mb-3">
-                            {product.title.split(" ").slice(0, 2).join(" ")}
-                          </h3>
-                          <div className="flex items-center justify-between">
-                            <span className="font-semibold">
-                              {product.price} EGP
-                            </span>
-                            <span className="font-semibold">
-                              <i className="fa fa-star text-yellow-400 mr-3"></i>
-                              {product.ratingsAverage}
-                            </span>
+              <div className="content shadow-gray-300 ">
+                <Slider {...settings1}>
+                  {relatedproducts.map((product) => (
+                    <div key={product.id} className="p-4">
+                      <div className="product border border-emerald-600 rounded-lg overflow-hidden">
+                        <Link
+                          to={`/productdetails/${product.id}/${product.category.name}`}
+                        >
+                          <img
+                            className="w-full"
+                            src={product.imageCover}
+                            alt={product.title}
+                          />
+                          <div className="text p-3">
+                            <h2 className="text-emerald-600 text-2xl mb-3">
+                              {product.category.name}
+                            </h2>
+                            <h3 className="text-lg font-semibold mb-3">
+                              {product.title.split(" ").slice(0, 2).join(" ")}
+                            </h3>
+                            <div className="flex items-center justify-between">
+                              <span className="font-semibold">
+                                {product.price} EGP
+                              </span>
+                              <span className="font-semibold">
+                                <i className="fa fa-star text-yellow-400 mr-3"></i>
+                                {product.ratingsAverage}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      </Link>
-                      <button
-                        onClick={() => addToCart(product.id)}
-                        className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-900 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center block m-3"
-                      >
-                        {loading && currentId == product.id ? (
-                          <i className="fa fa-spinner fa-spin fa-xl"></i>
-                        ) : (
-                          "Add to cart"
-                        )}
-                        <i className="fa-solid fa-cart-shopping ml-3"></i>
-                      </button>
+                        </Link>
+                        <button
+                          onClick={() => addToCart(product.id)}
+                          className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-900 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center block m-3"
+                        >
+                          {loading && currentId == product.id ? (
+                            <i className="fa fa-spinner fa-spin fa-xl"></i>
+                          ) : (
+                            "Add to cart"
+                          )}
+                          <i className="fa-solid fa-cart-shopping ml-3"></i>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </Slider>
               </div>
             </div>
           </div>
