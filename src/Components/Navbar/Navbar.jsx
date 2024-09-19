@@ -1,22 +1,26 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../../assets/freshcart-logo.svg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { UserContext } from "../../Context/UserContext";
 import { CartContext } from "../../Context/CartContenxt";
 import { WishContext } from "../../Context/WishContext";
 
 export default function Navbar() {
-  let { user, setUser } = useContext(UserContext);
+  const [user, setUser] = useState(
+    () => localStorage.getItem("userToken") || null
+  );
   let { wishItems, getUserWish } = useContext(WishContext);
   let { cartItems, getUserCart } = useContext(CartContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      getUserWish();
-      getUserCart();
-    }
+    const token = localStorage.getItem("userToken");
+    setUser(token);
+  }, [localStorage.getItem("userToken")]);
+
+  useEffect(() => {
+    getUserWish();
+    getUserCart();
   }, [user, getUserWish, getUserCart]);
 
   function handleSignout() {
@@ -87,12 +91,12 @@ export default function Navbar() {
                       {cartItems || 0}
                     </div>
                   </NavLink>
-                  <span
+                  <button
                     onClick={handleSignout}
                     className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-900 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center cursor-pointer"
                   >
                     Sign Out
-                  </span>
+                  </button>
                 </>
               ) : (
                 <>

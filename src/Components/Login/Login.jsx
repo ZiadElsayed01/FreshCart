@@ -1,13 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../Context/UserContext";
+import { Link } from "react-router-dom";
 
 export default function Login() {
-  let { user, setUser } = useContext(UserContext);
-  const navigate = useNavigate();
+  const [user, setUser] = useState("");
+
   const [APIError, setAPIError] = useState("");
   const [isLoading, setisLoading] = useState(false);
 
@@ -18,10 +17,10 @@ export default function Login() {
       .then((res) => {
         setisLoading(false);
         setAPIError(res.data.message);
-        if (res.data.message == "success") {
+        if (res.data.message === "success") {
           localStorage.setItem("userToken", res.data.token);
           setUser(res.data.token);
-          navigate("/");
+          window.location.href = "/";
         }
       })
       .catch((res) => {

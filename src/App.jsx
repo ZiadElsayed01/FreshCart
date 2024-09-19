@@ -9,7 +9,6 @@ import Cart from "./Components/Cart/Cart";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
 import Notfound from "./Components/Notfound/Notfound";
-import UserContextProvider from "./Context/UserContext";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import CartContextProvider from "./Context/CartContenxt";
@@ -117,12 +116,10 @@ function App() {
   return (
     <>
       <WishContextProvider>
-        <UserContextProvider>
-          <CartContextProvider>
-            <RouterProvider router={paths}></RouterProvider>
-            <Toaster />
-          </CartContextProvider>
-        </UserContextProvider>
+        <CartContextProvider>
+          <RouterProvider router={paths}></RouterProvider>
+          <Toaster />
+        </CartContextProvider>
       </WishContextProvider>
     </>
   );
