@@ -23,7 +23,8 @@ export default function Checkout() {
       city: "",
     },
     validationSchema,
-    onSubmit: () => handleCheckout(cartId, `http://localhost:5173`),
+    onSubmit: () =>
+      handleCheckout(cartId, `https://final-project-rho-jet.vercel.app/`),
   });
 
   async function handleCheckout(cartId, url) {
