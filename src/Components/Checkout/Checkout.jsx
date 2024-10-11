@@ -24,7 +24,7 @@ export default function Checkout() {
     },
     validationSchema,
     onSubmit: () =>
-      handleCheckout(cartId, `https://final-project-rho-jet.vercel.app/`),
+      handleCheckout(cartId, `https://fresh-cart-route.vercel.app`),
   });
 
   async function handleCheckout(cartId, url) {
