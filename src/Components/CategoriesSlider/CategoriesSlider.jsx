@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
+import { Skeleton } from "../ui/skeleton";
 
 export default function CategoriesSlider() {
   const [categories, setcategories] = useState([]);
@@ -83,29 +85,42 @@ export default function CategoriesSlider() {
           <Slider {...settings}>
             {categories.map((category) => (
               <div key={category._id} className="px-2">
-                <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group">
-                  <CardContent className="p-0">
-                    <div className="relative aspect-square">
-                      <img
-                        src={category.image}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                        alt={category.name}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                      <div className="absolute bottom-0 left-0 right-0 p-4">
-                        <h3 className="text-white font-semibold text-center truncate">
-                          {category.name}
-                        </h3>
+                <Link
+                  to="/categories"
+                  state={{ selectedCategoryId: category._id }}
+                >
+                  <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group">
+                    <CardContent className="p-0">
+                      <div className="relative aspect-square">
+                        <img
+                          src={category.image}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          alt={category.name}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-4">
+                          <h3 className="text-white font-semibold text-center truncate">
+                            {category.name}
+                          </h3>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </Link>
               </div>
             ))}
           </Slider>
         ) : (
-          <div className="flex items-center justify-center h-64">
-            <div className="loader"></div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4">
+            {[...Array(7)].map((_, i) => (
+              <div key={i} className="px-2">
+                <Card className="overflow-hidden">
+                  <CardContent className="p-0">
+                    <Skeleton className="aspect-square w-full" />
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
           </div>
         )}
       </div>

@@ -3,6 +3,18 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "../ui/card";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Loader2, AlertCircle } from "lucide-react";
+import { Alert, AlertDescription } from "../ui/alert";
+import forgotPasswordImage from "../../assets/Forgot password.svg";
 
 export default function ForgetPassword() {
   const [isLoading, setisLoading] = useState(false);
@@ -40,7 +52,7 @@ export default function ForgetPassword() {
     try {
       let res = await axios.post(
         `https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords`,
-        value
+        value,
       );
       if (res.data.statusMsg == "success") {
         setformStatus(false);
@@ -56,12 +68,12 @@ export default function ForgetPassword() {
     try {
       let res = await axios.post(
         `https://ecommerce.routemisr.com/api/v1/auth/verifyResetCode`,
-        value
+        value,
       );
       if (res.data.status == "Success") {
         navigate("/resetpassword");
       }
-    } catch {
+    } catch (err) {
       console.log(err);
       setAPIError(err.response.data.message);
     }
@@ -69,118 +81,104 @@ export default function ForgetPassword() {
   }
 
   return (
-    <>
-      <div className="w-full mt-40 md:mt-24">
-        {APIError ? (
-          APIError === "success" ? (
-            <div
-              className="p-4 mb-4 text-lg text-center text-emerald-800 rounded-lg bg-emerald-50 mx-auto max-w-screen-md"
-              role="alert"
-            >
-              {APIError}
-            </div>
-          ) : (
-            <div
-              className="p-4 mb-4 text-lg text-center text-red-800 rounded-lg bg-red-50 mx-auto max-w-screen-md"
-              role="alert"
-            >
-              {APIError}
-            </div>
-          )
-        ) : null}
-        <h2 className="font-bold text-3xl text-center text-emerald-600 mb-3">
-          Forget Password
-        </h2>
-        {formStatus ? (
-          <form
-            onSubmit={formik.handleSubmit}
-            className="max-w-2xl mx-auto py-5"
-          >
-            <div className="relative z-0 w-full mb-5 group">
-              <input
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                type="email"
-                name="email"
-                id="email"
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 focus:outline-none focus:ring-0 focus:border-emerald-600 peer"
-              />
-              <label
-                htmlFor="email"
-                className="left-0 peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-emerald-600 peer-focus:dark:text-emerald-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Email
-              </label>
-              {formik.errors.email && formik.touched.email ? (
-                <div
-                  className="p-4 mt-2 text-red-800 rounded-lg bg-red-50 text-md text-center"
-                  role="alert"
-                >
-                  {formik.errors.email}
-                </div>
-              ) : null}
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-900 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center"
-              >
-                {isLoading ? (
-                  <i className="fa fa-spinner fa-spin"></i>
-                ) : (
-                  "Submit"
-                )}
-              </button>
-            </div>
-          </form>
-        ) : (
-          <form
-            onSubmit={formik2.handleSubmit}
-            className="max-w-2xl mx-auto py-5"
-          >
-            <div className="relative z-0 w-full mb-5 group">
-              <input
-                value={formik2.values.resetCode}
-                onChange={formik2.handleChange}
-                onBlur={formik2.handleBlur}
-                type="text"
-                name="resetCode"
-                id="resetCode"
-                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 focus:outline-none focus:ring-0 focus:border-emerald-600 peer"
-              />
-              <label
-                htmlFor="resetCode"
-                className="left-0 peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-emerald-600 peer-focus:dark:text-emerald-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Reset Code
-              </label>
-              {formik2.errors.resetCode && formik2.touched.resetCode ? (
-                <div
-                  className="p-4 mt-2 text-red-800 rounded-lg bg-red-50 text-md text-center"
-                  role="alert"
-                >
-                  {formik2.errors.resetCode}
-                </div>
-              ) : null}
-            </div>
-            <div className="flex items-center gap-3">
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-900 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center"
-              >
-                {isLoading ? (
-                  <i className="fa fa-spinner fa-spin"></i>
-                ) : (
-                  "Verify Code"
-                )}
-              </button>
-            </div>
-          </form>
-        )}
+    <div className="min-h-screen grid lg:grid-cols-2">
+      <div className="hidden lg:flex items-center justify-center bg-muted p-12">
+        <img
+          src={forgotPasswordImage}
+          alt="Forgot Password"
+          className="max-w-full max-h-[600px] object-contain"
+        />
       </div>
-    </>
+      <div className="flex items-center justify-center p-4 lg:p-12">
+        <Card className="w-full max-w-md">
+          <CardHeader className="space-y-1 text-center">
+            <CardTitle className="text-3xl font-bold text-primary">
+              Forget Password
+            </CardTitle>
+            <CardDescription>
+              {formStatus
+                ? "Enter your email to reset your password"
+                : "Enter the reset code sent to your email"}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {APIError && (
+              <Alert
+                className="mb-4"
+                variant={APIError === "success" ? "default" : "destructive"}
+              >
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>{APIError}</AlertDescription>
+              </Alert>
+            )}
+            {formStatus ? (
+              <form onSubmit={formik.handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium">
+                    Email
+                  </label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.email && formik.touched.email && (
+                    <p className="text-sm text-destructive">
+                      {formik.errors.email}
+                    </p>
+                  )}
+                </div>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    "Submit"
+                  )}
+                </Button>
+              </form>
+            ) : (
+              <form onSubmit={formik2.handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <label htmlFor="resetCode" className="text-sm font-medium">
+                    Reset Code
+                  </label>
+                  <Input
+                    id="resetCode"
+                    name="resetCode"
+                    type="text"
+                    placeholder="Enter 5-6 digit code"
+                    value={formik2.values.resetCode}
+                    onChange={formik2.handleChange}
+                    onBlur={formik2.handleBlur}
+                  />
+                  {formik2.errors.resetCode && formik2.touched.resetCode && (
+                    <p className="text-sm text-destructive">
+                      {formik2.errors.resetCode}
+                    </p>
+                  )}
+                </div>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Verifying...
+                    </>
+                  ) : (
+                    "Verify Code"
+                  )}
+                </Button>
+              </form>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }

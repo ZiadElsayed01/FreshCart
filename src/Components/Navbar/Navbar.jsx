@@ -3,14 +3,11 @@ import logo from "../../assets/freshcart-logo.svg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CartContext } from "../../Context/CartContenxt";
 import { WishContext } from "../../Context/WishContext";
-import { SearchContext } from "../../Context/SearchContext";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { Input } from "../ui/input";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import {
   Menu,
-  Search,
   ShoppingCart,
   Heart,
   User,
@@ -28,7 +25,6 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   let { wishItems, getUserWish } = useContext(WishContext);
   let { cartItems, getUserCart } = useContext(CartContext);
-  const { searchQuery, setSearchQuery } = useContext(SearchContext);
   const { theme, setTheme } = useTheme();
 
   const navigate = useNavigate();
@@ -96,20 +92,6 @@ export default function Navbar() {
                 ))}
               </div>
             )}
-
-            {/* Search Bar */}
-            <div className="hidden md:flex flex-1 max-w-sm mx-6">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Search products..."
-                  className="pl-10"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-            </div>
 
             {/* Right Side Actions */}
             <div className="flex items-center space-x-2">
@@ -187,18 +169,6 @@ export default function Navbar() {
               <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
             <div className="flex flex-col space-y-4 mt-6">
-              {/* Mobile Search */}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Search products..."
-                  className="pl-10"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-
               {/* Mobile Navigation */}
               {user && (
                 <nav className="flex flex-col space-y-2">

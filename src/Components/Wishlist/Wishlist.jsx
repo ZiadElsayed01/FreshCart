@@ -3,6 +3,10 @@ import { WishContext } from "../../Context/WishContext";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../Context/CartContenxt";
+import { Card, CardContent } from "../ui/card";
+import { Button } from "../ui/button";
+import { Skeleton } from "../ui/skeleton";
+import { Trash2, ShoppingCart, Heart, Loader2 } from "lucide-react";
 
 export default function Wishlist() {
   const { deleteWishItem, getUserWish, wishItems, setwishItems } =
@@ -64,72 +68,109 @@ export default function Wishlist() {
   }, []);
 
   return (
-    <div className="wishlist my-40 md:my-14 flex flex-wrap justify-between">
-      {loading ? (
-        <span className="loader my-40 block mx-auto"></span>
-      ) : wishDetails.length > 0 ? (
-        wishDetails.map((item) => (
-          <div
-            key={item.id}
-            className="wishlistItem bg-white shadow-lg rounded-lg p-6 mb-6 w-full"
-          >
-            <div className="details flex flex-col md:flex-row justify-between items-center gap-5">
-              <div className="image">
+    <div className="py-8">
+      <div className="max-w-screen-xl mx-auto px-4">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-primary mb-2">My Wishlist</h1>
+          <p className="text-muted-foreground">
+            Items you've saved for later
+          </p>
+        </div>
+
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {[...Array(4)].map((_, i) => (
+              <Card key={i} className="overflow-hidden">
+                <Skeleton className="aspect-square w-full" />
+                <CardContent className="p-4 space-y-3">
+                  <Skeleton className="h-6 w-3/4" />
+                  <Skeleton className="h-4 w-1/2" />
+                  <Skeleton className="h-6 w-1/4" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        ) : wishDetails.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {wishDetails.map((item) => (
+              <Card key={item.id} className="overflow-hidden hover:shadow-xl transition-all duration-300">
                 <Link
                   to={`/productdetails/${item?.id}/${item?.category?.name}`}
                 >
-                  <img
-                    className="w-[250px]"
-                    src={item.imageCover}
-                    alt={item.title}
-                  />
+                  <div className="relative aspect-square overflow-hidden bg-muted">
+                    <img
+                      className="w-full h-full object-cover"
+                      src={item.imageCover}
+                      alt={item.title}
+                    />
+                  </div>
                 </Link>
-              </div>
-              <div className="w-full">
-                <h2 className="text-emerald-600 text-3xl mb-3 font-bold">
-                  {item.title}
-                </h2>
-                <p className="text-lg mt-3">{item.description}</p>
-                <img
-                  src={item?.brand?.image}
-                  alt={item?.brand?.name}
-                  className="w-[100px]"
-                />
-                <p className="font-semibold text-xl mt-3">${item.price}</p>
-                <div className="mt-3">
-                  <button
-                    className="deleteButton text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-md"
-                    onClick={() => deleteItem(item.id)}
-                    disabled={deletingProductId === item.id}
+                <CardContent className="p-4">
+                  <Link
+                    to={`/productdetails/${item?.id}/${item?.category?.name}`}
                   >
-                    {deletingProductId === item.id ? (
-                      <i className="fa fa-spinner fa-spin fa-xl"></i>
-                    ) : (
-                      "Remove"
-                    )}
-                  </button>
-                  <button
-                    onClick={() => addToCart(item.id)}
-                    className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-900 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center block my-3"
-                    disabled={isAddingToCart && currentId === item.id}
-                  >
-                    {isAddingToCart && currentId === item.id ? (
-                      <i className="fa fa-spinner fa-spin fa-xl"></i>
-                    ) : (
-                      "Add to cart"
-                    )}
-                    <i className="fa-solid fa-cart-shopping ml-3"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
+                    <h3 className="font-semibold text-lg mb-2 line-clamp-2 hover:text-primary transition-colors">
+                      {item.title}
+                    </h3>
+                  </Link>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xl font-bold text-primary">
+                      ${item.price}
+                    </span>
+                  </div>
+                  <div className="space-y-2">
+                    <Button
+                      onClick={() => addToCart(item.id)}
+                      className="w-full"
+                      disabled={isAddingToCart && currentId === item.id}
+                    >
+                      {isAddingToCart && currentId === item.id ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <>
+                          <ShoppingCart className="h-4 w-4 mr-2" />
+                          Add to Cart
+                        </>
+                      )}
+                    </Button>
+                    <Button
+                      onClick={() => deleteItem(item.id)}
+                      variant="outline"
+                      className="w-full text-destructive hover:text-destructive hover:bg-destructive/10"
+                      disabled={deletingProductId === item.id}
+                    >
+                      {deletingProductId === item.id ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <>
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          Remove
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        ))
-      ) : (
-        <h1 className="text-emerald-600 font-semibold text-3xl md:text-4xl my-24 md:my-32 w-11/12 md:w-3/4 mx-auto text-center p-5">
-          Your wishlist is empty
-        </h1>
-      )}
+        ) : (
+          <Card className="text-center py-16">
+            <CardContent>
+              <Heart className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
+              <h2 className="text-2xl font-semibold mb-2">Your wishlist is empty</h2>
+              <p className="text-muted-foreground mb-6">
+                Save items you love by clicking the heart icon on products.
+              </p>
+              <Button asChild>
+                <Link to="/products">
+                  Browse Products
+                  <ShoppingCart className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+      </div>
     </div>
   );
 }
