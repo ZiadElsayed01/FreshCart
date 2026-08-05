@@ -14,24 +14,24 @@ var settings = {
   arrows: false,
   autoplay: true,
   autoplaySpeed: 4000,
-  pauseOnHover: true,
+  pauseOnHover: false,
 };
 
 export default function MainSlider() {
   return (
-    <div className="slider-container pb-0 pt-6 lg:py-6 max-w-screen-xl mx-auto">
+    <div className="slider-container pt-6 lg:py-6 max-w-screen-xl mx-auto">
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Main Slider */}
         <div className="w-full lg:w-3/4">
-          <Card className="overflow-hidden border-0 shadow-lg">
+          <Card className="overflow-hidden border-0 shadow-lg h-[250px] md:h-[350px] lg:h-[450px]">
             <Slider {...settings}>
-              <div className="relative">
+              <div className="relative h-[250px] md:h-[350px] lg:h-[450px]">
                 <img
-                  className="w-full h-[250px] md:h-[350px] lg:h-[450px] object-cover"
+                  className="w-full h-full object-cover"
                   src={slide1}
                   alt="Promotion 1"
                 />
-                <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white px-4">
+                <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white px-4 h-full">
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-center">
                     Shop Everything You Need
                   </h2>
@@ -43,13 +43,13 @@ export default function MainSlider() {
                   </button>
                 </div>
               </div>
-              <div className="relative">
+              <div className="relative h-[250px] md:h-[350px] lg:h-[450px]">
                 <img
-                  className="w-full h-[250px] md:h-[350px] lg:h-[450px] object-cover"
+                  className="w-full h-full object-cover"
                   src={slide2}
                   alt="Promotion 2"
                 />
-                <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white px-4">
+                <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white px-4 h-full">
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-center">
                     Shop Everything You Need
                   </h2>
@@ -61,13 +61,13 @@ export default function MainSlider() {
                   </button>
                 </div>
               </div>
-              <div className="relative">
+              <div className="relative h-[250px] md:h-[350px] lg:h-[450px]">
                 <img
-                  className="w-full h-[250px] md:h-[350px] lg:h-[450px] object-cover"
+                  className="w-full h-full object-cover"
                   src={slide3}
                   alt="Promotion 3"
                 />
-                <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white px-4">
+                <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white px-4 h-full">
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 text-center">
                     Shop Everything You Need
                   </h2>
@@ -91,7 +91,7 @@ export default function MainSlider() {
               src={slide4}
               alt="Grocery Banner"
             />
-            <div className="absolute inset-0 bg-black/30 flex flex-col items-start justify-center text-white px-4">
+            <div className="absolute inset-0 bg-black/40 flex flex-col items-start justify-center text-white px-4">
               <h3 className="text-lg md:text-xl font-bold mb-1">
                 Fresh Groceries
               </h3>
@@ -106,7 +106,7 @@ export default function MainSlider() {
               src={slide5}
               alt="Ecommerce Banner 2"
             />
-            <div className="absolute inset-0 bg-black/30 flex flex-col items-start justify-center text-white p-4">
+            <div className="absolute inset-0 bg-black/40 flex flex-col items-start justify-center text-white p-4">
               <h3 className="text-lg md:text-xl font-bold mb-1">Flash Sale</h3>
               <p className="text-sm md:text-base">Limited time offers</p>
             </div>
