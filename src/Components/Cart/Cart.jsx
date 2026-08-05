@@ -101,8 +101,12 @@ export default function Cart() {
   }, [getUserCart]);
 
   return (
-    <div className="py-8 px-4">
+    <div className="py-8 min-h-screen">
       <div className="max-w-screen-xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-primary mb-2">My Cart</h1>
+          <p className="text-muted-foreground">Items in your cart</p>
+        </div>
         {loading ? (
           <div className="flex items-center justify-center h-64">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -260,7 +264,7 @@ export default function Cart() {
                     )}
                   </Button>
                   <Button asChild className="w-full" size="lg">
-                    <Link to="/checkout">
+                    <Link to="/checkout" className="flex items-center">
                       Proceed to Checkout
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>

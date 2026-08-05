@@ -71,7 +71,7 @@ export default function CategoriesSlider() {
   }, []);
 
   return (
-    <div className="py-8 px-4">
+    <div className="py-8">
       <div className="max-w-screen-xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-primary">

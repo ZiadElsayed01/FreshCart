@@ -54,7 +54,7 @@ export default function AllOrders() {
   }, [userID]);
 
   return (
-    <div className="py-8">
+    <div className="py-8 min-h-screen">
       <div className="max-w-screen-xl mx-auto px-4">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-primary mb-2">My Orders</h1>
@@ -181,8 +181,8 @@ export default function AllOrders() {
               <ShoppingBag className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
               <h2 className="text-2xl font-semibold mb-2">No Orders Yet</h2>
               <p className="text-muted-foreground mb-6">
-                You haven't placed any orders yet. Start shopping to see your
-                orders here.
+                You haven&apos;t placed any orders yet. Start shopping to see
+                your orders here.
               </p>
               <Link to="/products">
                 <button className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-lg font-medium transition-colors">

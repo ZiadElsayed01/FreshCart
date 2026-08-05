@@ -47,7 +47,7 @@ export default function Wishlist() {
     setDeletingProductId(productId);
 
     const updatedWishDetails = wishDetails.filter(
-      (item) => item.id !== productId
+      (item) => item.id !== productId,
     );
     setWishDetails(updatedWishDetails);
 
@@ -68,12 +68,12 @@ export default function Wishlist() {
   }, []);
 
   return (
-    <div className="py-8">
+    <div className="py-8 min-h-screen">
       <div className="max-w-screen-xl mx-auto px-4">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-primary mb-2">My Wishlist</h1>
           <p className="text-muted-foreground">
-            Items you've saved for later
+            Items you&apos;ve saved for later
           </p>
         </div>
 
@@ -93,7 +93,10 @@ export default function Wishlist() {
         ) : wishDetails.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {wishDetails.map((item) => (
-              <Card key={item.id} className="overflow-hidden hover:shadow-xl transition-all duration-300">
+              <Card
+                key={item.id}
+                className="overflow-hidden hover:shadow-xl transition-all duration-300"
+              >
                 <Link
                   to={`/productdetails/${item?.id}/${item?.category?.name}`}
                 >
@@ -157,7 +160,9 @@ export default function Wishlist() {
           <Card className="text-center py-16">
             <CardContent>
               <Heart className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-              <h2 className="text-2xl font-semibold mb-2">Your wishlist is empty</h2>
+              <h2 className="text-2xl font-semibold mb-2">
+                Your wishlist is empty
+              </h2>
               <p className="text-muted-foreground mb-6">
                 Save items you love by clicking the heart icon on products.
               </p>

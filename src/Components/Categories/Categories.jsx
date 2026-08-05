@@ -67,7 +67,7 @@ export default function Categories() {
   }, [selectedCategory]);
 
   return (
-    <div className="py-8">
+    <div className="py-8 min-h-screen">
       <div className="max-w-screen-xl mx-auto px-4">
         <h1 className="text-4xl font-bold text-primary mb-2 text-center">
           Categories
@@ -79,7 +79,7 @@ export default function Categories() {
         <div className="grid lg:grid-cols-4 gap-6">
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <Card className="sticky top-20">
+            <Card className="sticky top-20 max-h-[50vh] overflow-y-scroll">
               <CardContent className="p-4">
                 <h2 className="text-lg font-semibold mb-4">All Categories</h2>
                 {loading ? (

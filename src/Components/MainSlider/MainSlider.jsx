@@ -79,7 +79,7 @@ function CustomNextArrow(props) {
 
 export default function MainSlider() {
   return (
-    <div className="slider-container py-6 px-4">
+    <div className="slider-container py-6">
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Main Slider */}
         <div className="w-full lg:w-3/4">

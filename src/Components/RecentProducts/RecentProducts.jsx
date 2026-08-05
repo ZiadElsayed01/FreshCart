@@ -137,7 +137,7 @@ export default function RecentProducts() {
   }
 
   return (
-    <div className="py-8 px-4">
+    <div className="py-8 min-h-screen">
       <div className="max-w-screen-xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-primary mb-2">Our Products</h1>
@@ -156,7 +156,7 @@ export default function RecentProducts() {
                   Filter
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start">
+              <DropdownMenuContent align="start" className="w-52">
                 <DropdownMenuItem onClick={() => setFilterCategory("all")}>
                   All Categories
                 </DropdownMenuItem>
@@ -192,7 +192,7 @@ export default function RecentProducts() {
                 Sort
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className="w-52">
               <DropdownMenuItem onClick={() => setSortBy("default")}>
                 Default
               </DropdownMenuItem>
