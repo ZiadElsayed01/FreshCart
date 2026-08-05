@@ -5,7 +5,11 @@ const ThemeContext = createContext({
   setTheme: () => {},
 });
 
-export function ThemeProvider({ children, defaultTheme = "light", storageKey = "vite-ui-theme" }) {
+export function ThemeProvider({
+  children,
+  defaultTheme = "light",
+  storageKey = "vite-ui-theme",
+}) {
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem(storageKey);
     return storedTheme || defaultTheme;
@@ -23,7 +27,9 @@ export function ThemeProvider({ children, defaultTheme = "light", storageKey = "
     setTheme: (newTheme) => setTheme(newTheme),
   };
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  );
 }
 
 export const useTheme = () => {

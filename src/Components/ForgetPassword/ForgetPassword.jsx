@@ -15,7 +15,7 @@ import { Input } from "../ui/input";
 import { Loader2, AlertCircle, Moon, Sun } from "lucide-react";
 import { Alert, AlertDescription } from "../ui/alert";
 import forgotPasswordImage from "../../assets/Forgot password.svg";
-import { useTheme } from "../../context/ThemeContext";
+import { useTheme } from "../../Context/ThemeContext";
 
 export default function ForgetPassword() {
   const [isLoading, setisLoading] = useState(false);
