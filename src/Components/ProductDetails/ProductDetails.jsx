@@ -152,7 +152,7 @@ export default function ProductDetails() {
   };
 
   return (
-    <div className="py-8 px-4">
+    <div className="py-8">
       <div className="max-w-screen-xl mx-auto">
         {product ? (
           <>

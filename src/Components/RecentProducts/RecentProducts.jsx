@@ -269,7 +269,7 @@ export default function RecentProducts() {
                         >
                           <Heart
                             className={cn(
-                              "h-4 w-4",
+                              "h-4 w-4 text-black",
                               wishlist.includes(product.id) &&
                                 "fill-red-500 text-red-500",
                             )}
