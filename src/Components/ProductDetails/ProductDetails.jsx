@@ -13,6 +13,7 @@ import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
+import { Skeleton } from "../ui/skeleton";
 import {
   ShoppingCart,
   Star,
@@ -467,8 +468,53 @@ export default function ProductDetails() {
             )}
           </>
         ) : (
-          <div className="flex items-center justify-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Product Images Skeleton */}
+            <div className="space-y-4">
+              <Skeleton className="w-full aspect-square rounded-lg" />
+              <div className="grid grid-cols-4 gap-2">
+                <Skeleton className="w-full aspect-square rounded" />
+                <Skeleton className="w-full aspect-square rounded" />
+                <Skeleton className="w-full aspect-square rounded" />
+                <Skeleton className="w-full aspect-square rounded" />
+              </div>
+            </div>
+
+            {/* Product Info Skeleton */}
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <Skeleton className="h-6 w-24" />
+                <Skeleton className="h-8 w-3/4" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-5/6" />
+                <Skeleton className="h-4 w-4/6" />
+              </div>
+
+              <Separator />
+
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <Skeleton className="h-5 w-5" />
+                  <Skeleton className="h-8 w-12" />
+                  <Separator orientation="vertical" className="h-8" />
+                  <Skeleton className="h-4 w-24" />
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <Skeleton className="h-5 w-5" />
+                  <Skeleton className="h-4 w-20" />
+                  <Separator orientation="vertical" className="h-8" />
+                  <Skeleton className="h-4 w-24" />
+                </div>
+              </div>
+
+              <Separator />
+
+              <div className="space-y-4">
+                <Skeleton className="h-10 w-32" />
+                <Skeleton className="h-12 w-full rounded-lg" />
+              </div>
+            </div>
           </div>
         )}
       </div>
