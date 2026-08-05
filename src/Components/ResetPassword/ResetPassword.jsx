@@ -13,13 +13,15 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { PasswordInput } from "../ui/password-input";
-import { Loader2, AlertCircle } from "lucide-react";
+import { Loader2, AlertCircle, Moon, Sun } from "lucide-react";
 import { Alert, AlertDescription } from "../ui/alert";
 import forgotPasswordImage from "../../assets/Forgot password.svg";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Login() {
   const [APIError, setAPIError] = useState("");
   const [isLoading, setisLoading] = useState(false);
+  const { theme, setTheme } = useTheme();
   let navigate = useNavigate();
 
   let validationSchema = Yup.object().shape({
@@ -67,76 +69,88 @@ export default function Login() {
         />
       </div>
       <div className="flex items-center justify-center p-4 lg:p-12">
-        <Card className="w-full max-w-md">
-          <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-3xl font-bold text-primary">
-              Reset Password
-            </CardTitle>
-            <CardDescription>
-              Enter your email and new password to reset
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {APIError && (
-              <Alert
-                className="mb-4"
-                variant={APIError === "success" ? "default" : "destructive"}
-              >
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{APIError}</AlertDescription>
-              </Alert>
-            )}
-            <form onSubmit={formik.handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.email && formik.touched.email && (
-                  <p className="text-sm text-destructive">
-                    {formik.errors.email}
-                  </p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="newPassword" className="text-sm font-medium">
-                  New Password
-                </label>
-                <PasswordInput
-                  id="newPassword"
-                  name="newPassword"
-                  placeholder="••••••••"
-                  value={formik.values.newPassword}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.newPassword && formik.touched.newPassword && (
-                  <p className="text-sm text-destructive">
-                    {formik.errors.newPassword}
-                  </p>
-                )}
-              </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Updating...
-                  </>
-                ) : (
-                  "Update Password"
-                )}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+        <div className="w-full max-w-md">
+          <div className="flex justify-end mb-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            >
+              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            </Button>
+          </div>
+          <Card>
+            <CardHeader className="space-y-1 text-center">
+              <CardTitle className="text-3xl font-bold text-primary">
+                Reset Password
+              </CardTitle>
+              <CardDescription>
+                Enter your email and new password to reset
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {APIError && (
+                <Alert
+                  className="mb-4"
+                  variant={APIError === "success" ? "default" : "destructive"}
+                >
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>{APIError}</AlertDescription>
+                </Alert>
+              )}
+              <form onSubmit={formik.handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium">
+                    Email
+                  </label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.email && formik.touched.email && (
+                    <p className="text-sm text-destructive">
+                      {formik.errors.email}
+                    </p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="newPassword" className="text-sm font-medium">
+                    New Password
+                  </label>
+                  <PasswordInput
+                    id="newPassword"
+                    name="newPassword"
+                    placeholder="••••••••"
+                    value={formik.values.newPassword}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.newPassword && formik.touched.newPassword && (
+                    <p className="text-sm text-destructive">
+                      {formik.errors.newPassword}
+                    </p>
+                  )}
+                </div>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Updating...
+                    </>
+                  ) : (
+                    "Update Password"
+                  )}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

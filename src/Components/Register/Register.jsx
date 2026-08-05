@@ -13,13 +13,15 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { PasswordInput } from "../ui/password-input";
-import { Loader2, UserPlus, AlertCircle } from "lucide-react";
+import { Loader2, UserPlus, AlertCircle, Moon, Sun } from "lucide-react";
 import { Alert, AlertDescription } from "../ui/alert";
 import registerImage from "../../assets/register.svg";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function Register() {
   const [APIError, setAPIError] = useState("");
   const [isLoading, setisLoading] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   function handleRegister(values) {
     setisLoading(true);
@@ -74,7 +76,7 @@ export default function Register() {
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2">
-      <div className="hidden lg:flex items-center justify-center bg-muted p-12">
+      <div className="hidden lg:flex items-center justify-center">
         <img
           src={registerImage}
           alt="Register"
@@ -82,146 +84,158 @@ export default function Register() {
         />
       </div>
       <div className="flex items-center justify-center p-4 lg:p-12">
-        <Card className="w-full max-w-md">
-          <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-3xl font-bold text-primary">
-              Create Account
-            </CardTitle>
-            <CardDescription>
-              Sign up to start shopping with FreshCart
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {APIError && (
-              <Alert
-                className="mb-4"
-                variant={APIError === "success" ? "default" : "destructive"}
-              >
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{APIError}</AlertDescription>
-              </Alert>
-            )}
-            <form onSubmit={formik.handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium">
-                  Name
-                </label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="John Doe"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.name && formik.touched.name && (
-                  <p className="text-sm text-destructive">
-                    {formik.errors.name}
-                  </p>
-                )}
+        <div className="w-full max-w-md">
+          <div className="flex justify-end mb-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            >
+              <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            </Button>
+          </div>
+          <Card>
+            <CardHeader className="space-y-1 text-center">
+              <CardTitle className="text-3xl font-bold text-primary">
+                Create Account
+              </CardTitle>
+              <CardDescription>
+                Sign up to start shopping with FreshCart
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {APIError && (
+                <Alert
+                  className="mb-4"
+                  variant={APIError === "success" ? "default" : "destructive"}
+                >
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>{APIError}</AlertDescription>
+                </Alert>
+              )}
+              <form onSubmit={formik.handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="text-sm font-medium">
+                    Name
+                  </label>
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="John Doe"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.name && formik.touched.name && (
+                    <p className="text-sm text-destructive">
+                      {formik.errors.name}
+                    </p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="email" className="text-sm font-medium">
+                    Email
+                  </label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.email && formik.touched.email && (
+                    <p className="text-sm text-destructive">
+                      {formik.errors.email}
+                    </p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="phone" className="text-sm font-medium">
+                    Phone
+                  </label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="01xxxxxxxxx"
+                    value={formik.values.phone}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.phone && formik.touched.phone && (
+                    <p className="text-sm text-destructive">
+                      {formik.errors.phone}
+                    </p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="password" className="text-sm font-medium">
+                    Password
+                  </label>
+                  <PasswordInput
+                    id="password"
+                    name="password"
+                    placeholder="••••••••"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.password && formik.touched.password && (
+                    <p className="text-sm text-destructive">
+                      {formik.errors.password}
+                    </p>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="rePassword" className="text-sm font-medium">
+                    Confirm Password
+                  </label>
+                  <PasswordInput
+                    id="rePassword"
+                    name="rePassword"
+                    placeholder="••••••••"
+                    value={formik.values.rePassword}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.errors.rePassword && formik.touched.rePassword && (
+                    <p className="text-sm text-destructive">
+                      {formik.errors.rePassword}
+                    </p>
+                  )}
+                </div>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Creating account...
+                    </>
+                  ) : (
+                    <>
+                      <UserPlus className="mr-2 h-4 w-4" />
+                      Sign Up
+                    </>
+                  )}
+                </Button>
+              </form>
+              <div className="mt-4 text-center text-sm">
+                <span className="text-muted-foreground">
+                  Already have an account?{" "}
+                </span>
+                <Link
+                  to="/login"
+                  className="text-primary hover:underline font-medium"
+                >
+                  Sign in
+                </Link>
               </div>
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.email && formik.touched.email && (
-                  <p className="text-sm text-destructive">
-                    {formik.errors.email}
-                  </p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="phone" className="text-sm font-medium">
-                  Phone
-                </label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="01xxxxxxxxx"
-                  value={formik.values.phone}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.phone && formik.touched.phone && (
-                  <p className="text-sm text-destructive">
-                    {formik.errors.phone}
-                  </p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium">
-                  Password
-                </label>
-                <PasswordInput
-                  id="password"
-                  name="password"
-                  placeholder="••••••••"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.password && formik.touched.password && (
-                  <p className="text-sm text-destructive">
-                    {formik.errors.password}
-                  </p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="rePassword" className="text-sm font-medium">
-                  Confirm Password
-                </label>
-                <PasswordInput
-                  id="rePassword"
-                  name="rePassword"
-                  placeholder="••••••••"
-                  value={formik.values.rePassword}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.rePassword && formik.touched.rePassword && (
-                  <p className="text-sm text-destructive">
-                    {formik.errors.rePassword}
-                  </p>
-                )}
-              </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Creating account...
-                  </>
-                ) : (
-                  <>
-                    <UserPlus className="mr-2 h-4 w-4" />
-                    Sign Up
-                  </>
-                )}
-              </Button>
-            </form>
-            <div className="mt-4 text-center text-sm">
-              <span className="text-muted-foreground">
-                Already have an account?{" "}
-              </span>
-              <Link
-                to="/login"
-                className="text-primary hover:underline font-medium"
-              >
-                Sign in
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
