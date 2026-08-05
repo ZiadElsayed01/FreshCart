@@ -1,6 +1,5 @@
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/" }],
   "buildCommand": "npm run build",
-  "framework": "vite",
-  "nodeVersion": "24.x"
+  "framework": "vite"
 }
