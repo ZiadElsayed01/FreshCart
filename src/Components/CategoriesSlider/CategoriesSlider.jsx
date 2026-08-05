@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Slider from "react-slick";
+import { Card, CardContent } from "../../components/ui/card";
+import { Badge } from "../../components/ui/badge";
 
 export default function CategoriesSlider() {
   const [categories, setcategories] = useState([]);
@@ -12,22 +14,36 @@ export default function CategoriesSlider() {
     slidesToShow: 7,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 1000,
+    autoplaySpeed: 3000,
     arrows: false,
+    pauseOnHover: true,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1280,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 5,
+          slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 640,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToScroll: 1,
         },
       },
       {
@@ -53,24 +69,46 @@ export default function CategoriesSlider() {
   }, []);
 
   return (
-    <>
-      <div className="slider mt-14 px-3">
-        <h2 className="text-emerald-600 text-2xl mb-3 font-bold">
-          Shop Popular Categories
-        </h2>
-        <Slider {...settings}>
-          {categories.map((category) => (
-            <div key={category._id}>
-              <img
-                src={category.image}
-                className="w-full h-[420px] md:h-[250px] object-cover"
-                alt={category.name}
-              />
-              <h2 className="text-lg">{category.name}</h2>
-            </div>
-          ))}
-        </Slider>
+    <div className="py-8 px-4">
+      <div className="max-w-screen-xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold text-primary">
+            Shop Popular Categories
+          </h2>
+          <Badge variant="secondary" className="text-sm">
+            {categories.length} Categories
+          </Badge>
+        </div>
+        {categories.length > 0 ? (
+          <Slider {...settings}>
+            {categories.map((category) => (
+              <div key={category._id} className="px-2">
+                <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group">
+                  <CardContent className="p-0">
+                    <div className="relative aspect-square">
+                      <img
+                        src={category.image}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        alt={category.name}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <h3 className="text-white font-semibold text-center truncate">
+                          {category.name}
+                        </h3>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
+          </Slider>
+        ) : (
+          <div className="flex items-center justify-center h-64">
+            <div className="loader"></div>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }

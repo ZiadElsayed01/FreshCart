@@ -1,7 +1,24 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../Context/CartContenxt";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
+import { Button } from "../../components/ui/button";
+import { Badge } from "../../components/ui/badge";
+import { Separator } from "../../components/ui/separator";
+import {
+  Minus,
+  Plus,
+  Trash2,
+  ShoppingCart,
+  Loader2,
+  ArrowRight,
+} from "lucide-react";
 
 export default function Cart() {
   const {
@@ -27,7 +44,7 @@ export default function Cart() {
       } else {
         toast.error("Failed to load cart items.");
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred while loading cart items.");
     } finally {
       setLoading(false);
@@ -45,7 +62,7 @@ export default function Cart() {
       } else {
         toast.error("Product Not Updated");
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred while updating the product.");
     } finally {
       setUpdatingProductId(null);
@@ -62,7 +79,7 @@ export default function Cart() {
       } else {
         toast.error("Product Not Removed");
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred while removing the product.");
     }
   }
@@ -78,7 +95,7 @@ export default function Cart() {
       } else {
         toast.error("Failed to Clear Cart");
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred while clearing the cart.");
     }
     setClearingCart(false);
@@ -89,166 +106,192 @@ export default function Cart() {
   }, []);
 
   return (
-    <>
-      {loading ? (
-        <span className="loader my-40 block mx-auto"></span>
-      ) : cartDetails?.products?.length > 0 ? (
-        <div className="cart mt-40 md:mt-14">
-          <div className="relative overflow-x-auto">
-            <table className="w-full text-sm text-left">
-              <thead className="text-sm md:text-lg uppercase bg-emerald-200">
-                <tr>
-                  <th scope="col" className="px-2 py-4 md:px-6 md:py-8">
-                    Product Image
-                  </th>
-                  <th scope="col" className="px-2 py-4 md:px-6 md:py-8">
-                    Product
-                  </th>
-                  <th scope="col" className="px-2 py-4 md:px-6 md:py-8">
-                    Qty
-                  </th>
-                  <th scope="col" className="px-2 py-4 md:px-6 md:py-8">
-                    Price
-                  </th>
-                  <th scope="col" className="px-2 py-4 md:px-6 md:py-8">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {cartDetails.products.map((product) => (
-                  <tr
-                    key={product.product.id}
-                    className="bg-white border-b-2 hover:bg-gray-50 border-emerald-600"
-                  >
-                    <td className="p-2 md:p-4">
-                      <img
-                        src={product.product.imageCover}
-                        className="w-16 h-16 md:w-20 md:h-20 max-w-full max-h-full"
-                        alt={product.product.title}
-                      />
-                    </td>
-                    <td className="px-2 py-2 md:px-6 md:py-4 font-semibold text-gray-900">
-                      {product.product.title}
-                    </td>
-                    <td className="px-2 py-2 md:px-6 md:py-4">
-                      <div className="flex items-center">
-                        <button
-                          onClick={() =>
-                            updateProduct(product.product.id, product.count - 1)
-                          }
-                          className="inline-flex items-center justify-center p-1 me-2 md:me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
-                          type="button"
-                          disabled={updatingProductId === product.product.id}
+    <div className="py-8 px-4">
+      <div className="max-w-screen-xl mx-auto">
+        {loading ? (
+          <div className="flex items-center justify-center h-64">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        ) : cartDetails?.products?.length > 0 ? (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Cart Items */}
+            <div className="lg:col-span-2 space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <ShoppingCart className="h-5 w-5" />
+                    Shopping Cart ({cartDetails.products.length} items)
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {cartDetails.products.map((product) => (
+                    <div key={product.product.id}>
+                      <div className="flex gap-4">
+                        <Link
+                          to={`/productdetails/${product.product.id}/${product.product.category.name}`}
                         >
-                          <span className="sr-only">Decrease quantity</span>
-                          <svg
-                            className="w-3 h-3"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 18 2"
+                          <img
+                            src={product.product.imageCover}
+                            className="w-24 h-24 object-cover rounded-lg"
+                            alt={product.product.title}
+                          />
+                        </Link>
+                        <div className="flex-1 space-y-2">
+                          <Link
+                            to={`/productdetails/${product.product.id}/${product.product.category.name}`}
                           >
-                            <path
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M1 1h16"
-                            />
-                          </svg>
-                        </button>
-                        <div>
-                          {updatingProductId === product.product.id ? (
-                            <i
-                              className="fa fa-spinner fa-spin fa-lg"
-                              style={{ color: "#205f45" }}
-                            ></i>
-                          ) : (
-                            <span>{product.count}</span>
-                          )}
+                            <h3 className="font-semibold hover:text-primary transition-colors line-clamp-2">
+                              {product.product.title}
+                            </h3>
+                          </Link>
+                          <Badge variant="secondary" className="text-xs">
+                            {product.product.category.name}
+                          </Badge>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className="font-bold text-primary">
+                                {product.price} EGP
+                              </span>
+                              <span className="text-muted-foreground text-sm">
+                                x {product.count}
+                              </span>
+                            </div>
+                            <span className="font-bold">
+                              {product.price * product.count} EGP
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                className="h-8 w-8"
+                                onClick={() =>
+                                  updateProduct(
+                                    product.product.id,
+                                    product.count - 1,
+                                  )
+                                }
+                                disabled={
+                                  updatingProductId === product.product.id ||
+                                  product.count <= 1
+                                }
+                              >
+                                <Minus className="h-4 w-4" />
+                              </Button>
+                              <span className="w-8 text-center font-medium">
+                                {updatingProductId === product.product.id ? (
+                                  <Loader2 className="h-4 w-4 animate-spin mx-auto" />
+                                ) : (
+                                  product.count
+                                )}
+                              </span>
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                className="h-8 w-8"
+                                onClick={() =>
+                                  updateProduct(
+                                    product.product.id,
+                                    product.count + 1,
+                                  )
+                                }
+                                disabled={
+                                  updatingProductId === product.product.id
+                                }
+                              >
+                                <Plus className="h-4 w-4" />
+                              </Button>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => deleteItem(product.product.id)}
+                              className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                            >
+                              <Trash2 className="h-4 w-4 mr-2" />
+                              Remove
+                            </Button>
+                          </div>
                         </div>
-                        <button
-                          onClick={() =>
-                            updateProduct(product.product.id, product.count + 1)
-                          }
-                          className="inline-flex items-center justify-center h-6 w-6 p-1 ms-2 md:ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
-                          type="button"
-                          disabled={updatingProductId === product.product.id}
-                        >
-                          <span className="sr-only">Increase quantity</span>
-                          <svg
-                            className="w-3 h-3"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 18 18"
-                          >
-                            <path
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 1v16M1 9h16"
-                            />
-                          </svg>
-                        </button>
                       </div>
-                    </td>
-                    <td className="px-2 py-2 md:px-6 md:py-4 font-semibold text-gray-900">
-                      {product.price} x {product.count} ={" "}
-                      {product.price * product.count}
-                    </td>
-                    <td className="px-2 py-2 md:px-6 md:py-4">
-                      <span
-                        onClick={() => deleteItem(product.product.id)}
-                        className="font-medium text-red-600 hover:underline cursor-pointer"
-                      >
-                        Remove
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                      <Separator className="mt-4" />
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Order Summary */}
+            <div className="lg:col-span-1">
+              <Card className="sticky top-20">
+                <CardHeader>
+                  <CardTitle>Order Summary</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Subtotal</span>
+                    <span className="font-medium">
+                      {cartDetails?.totalCartPrice} EGP
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Shipping</span>
+                    <span className="font-medium">Free</span>
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between text-lg font-bold">
+                    <span>Total</span>
+                    <span className="text-primary">
+                      {cartDetails?.totalCartPrice} EGP
+                    </span>
+                  </div>
+                  <Button
+                    onClick={handleClearCart}
+                    variant="outline"
+                    className="w-full"
+                    disabled={clearingCart}
+                  >
+                    {clearingCart ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Clearing...
+                      </>
+                    ) : (
+                      <>
+                        <Trash2 className="mr-2 h-4 w-4" />
+                        Clear Cart
+                      </>
+                    )}
+                  </Button>
+                  <Button asChild className="w-full" size="lg">
+                    <Link to="/checkout">
+                      Proceed to Checkout
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
           </div>
-          <div className="flex flex-col md:flex-row justify-between items-center my-5">
-            <h1 className="text-emerald-600 text-xl md:text-2xl lg:text-3xl">
-              Total Price: {cartDetails?.totalCartPrice} EGP
-            </h1>
-            <button
-              onClick={handleClearCart}
-              className="bg-red-600 hover:bg-red-800 text-white text-lg font-bold py-2 px-4 rounded-full"
-              disabled={clearingCart}
-            >
-              {clearingCart ? (
-                <i
-                  className="fa fa-spinner fa-spin"
-                  style={{ color: "#fff" }}
-                ></i>
-              ) : (
-                "Clear Cart"
-              )}
-            </button>
-          </div>
-          <Link to="/checkout">
-            <button className="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-900 font-medium rounded-lg text-md w-full px-5 py-3 text-center block my-3">
-              Checkout
-            </button>
-          </Link>
-        </div>
-      ) : (
-        <div className="empty-cart-message text-center my-40">
-          <h2 className="text-emerald-600 text-lg md:text-4xl mb-3">
-            Empty Cart
-          </h2>
-          <Link to="/products">
-            <button className="btn bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded">
-              Go to Products
-            </button>
-          </Link>
-        </div>
-      )}
-    </>
+        ) : (
+          <Card className="max-w-md mx-auto text-center">
+            <CardContent className="pt-6 pb-6">
+              <ShoppingCart className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
+              <h2 className="text-2xl font-bold mb-2">Your cart is empty</h2>
+              <p className="text-muted-foreground mb-6">
+                Looks like you haven't added any items to your cart yet.
+              </p>
+              <Button asChild>
+                <Link to="/products">
+                  Start Shopping
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+    </div>
   );
 }

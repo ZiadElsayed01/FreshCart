@@ -19,6 +19,10 @@ import ForgetPassword from "./Components/ForgetPassword/ForgetPassword";
 import ResetPassword from "./Components/ResetPassword/ResetPassword";
 import Wishlist from "./Components/Wishlist/Wishlist";
 import WishContextProvider from "./Context/WishContext";
+import SearchContextProvider from "./Context/SearchContext";
+import { ThemeProvider } from "./context/ThemeContext";
+import { RecentlyViewedContextProvider } from "./context/RecentlyViewedContext";
+import { ReviewsContextProvider } from "./context/ReviewsContext";
 
 let paths = createBrowserRouter([
   {
@@ -115,12 +119,20 @@ let paths = createBrowserRouter([
 function App() {
   return (
     <>
-      <WishContextProvider>
-        <CartContextProvider>
-          <RouterProvider router={paths}></RouterProvider>
-          <Toaster />
-        </CartContextProvider>
-      </WishContextProvider>
+      <ThemeProvider defaultTheme="light" storageKey="freshcart-theme">
+        <RecentlyViewedContextProvider>
+          <ReviewsContextProvider>
+            <SearchContextProvider>
+              <WishContextProvider>
+                <CartContextProvider>
+                  <RouterProvider router={paths}></RouterProvider>
+                  <Toaster />
+                </CartContextProvider>
+              </WishContextProvider>
+            </SearchContextProvider>
+          </ReviewsContextProvider>
+        </RecentlyViewedContextProvider>
+      </ThemeProvider>
     </>
   );
 }
