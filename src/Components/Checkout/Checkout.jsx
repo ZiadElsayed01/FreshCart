@@ -2,16 +2,11 @@ import { useContext, useState } from "react";
 import { CartContext } from "../../Context/CartContenxt";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../Components/ui/card";
-import { Button } from "../../Components/ui/button";
-import { Input } from "../../Components/ui/input";
-import { Label } from "../../Components/ui/label";
-import { Textarea } from "../../Components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Textarea } from "../ui/textarea";
 import { Loader2, MapPin, Phone, FileText } from "lucide-react";
 import { cn } from "../../lib/utils";
 

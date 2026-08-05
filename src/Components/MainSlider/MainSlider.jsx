@@ -4,7 +4,7 @@ import slide2 from "../../assets/slider-image-2.jpeg";
 import slide3 from "../../assets/slider-image-3.jpeg";
 import slide4 from "../../assets/grocery-banner.png";
 import slide5 from "../../assets/grocery-banner-2.jpeg";
-import { Card } from "../../Components/ui/card";
+import { Card } from "../ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 var settings = {

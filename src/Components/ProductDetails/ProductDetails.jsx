@@ -7,17 +7,12 @@ import { CartContext } from "../../Context/CartContenxt";
 import { useRecentlyViewed } from "../../context/RecentlyViewedContext";
 import { useReviews } from "../../context/ReviewsContext";
 import toast from "react-hot-toast";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../Components/ui/card";
-import { Button } from "../../Components/ui/button";
-import { Badge } from "../../Components/ui/badge";
-import { Separator } from "../../Components/ui/separator";
-import { Textarea } from "../../Components/ui/textarea";
-import { Label } from "../../Components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
+import { Separator } from "../ui/separator";
+import { Textarea } from "../ui/textarea";
+import { Label } from "../ui/label";
 import {
   ShoppingCart,
   Star,

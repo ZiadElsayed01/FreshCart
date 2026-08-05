@@ -9,11 +9,11 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "../../Components/ui/card";
-import { Button } from "../../Components/ui/button";
-import { Input } from "../../Components/ui/input";
+} from "../ui/card";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { Loader2, LogIn, AlertCircle } from "lucide-react";
-import { Alert, AlertDescription } from "../../Components/ui/alert";
+import { Alert, AlertDescription } from "../ui/alert";
 
 export default function Login() {
   const [APIError, setAPIError] = useState("");
