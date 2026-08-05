@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { WishContext } from "../../Context/WishContext";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";

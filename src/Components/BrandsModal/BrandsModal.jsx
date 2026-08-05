@@ -1,4 +1,4 @@
-import React from "react";
+
 
 export default function Modal({ isOpen, brand, onClose }) {
   if (!isOpen || !brand) return null;

@@ -1,4 +1,4 @@
-import React from "react";
+
 
 export default function Modal({ isOpen, category, onClose }) {
   if (!isOpen || !category) return null;
