@@ -1,11 +1,5 @@
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/" }],
-  "buildCommand": "cmd /c \"npm run build\"",
-  "framework": "vite",
-  "build": {
-    "env": {
-      "NODE_VERSION": "24"
-    }
-  },
-  "installCommand": "cmd /c \"npm install --ignore-scripts\""
+  "buildCommand": "npm run build",
+  "framework": "vite"
 }
