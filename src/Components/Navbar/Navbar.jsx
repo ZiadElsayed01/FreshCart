@@ -5,7 +5,7 @@ import { CartContext } from "../../Context/CartContenxt";
 import { WishContext } from "../../Context/WishContext";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
+import { Sheet, SheetContent, SheetHeader } from "../ui/sheet";
 import {
   Menu,
   ShoppingCart,
@@ -28,11 +28,6 @@ export default function Navbar() {
   const { theme, setTheme } = useTheme();
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("userToken");
-    setUser(token);
-  }, [localStorage.getItem("userToken")]);
 
   useEffect(() => {
     if (user) {
@@ -61,7 +56,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-        <div className="mx-auto min-w-screen-xl px-6">
+        <div className="max-w-screen-xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
@@ -99,7 +94,7 @@ export default function Navbar() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="hidden md:block"
+                className="hidden md:flex"
                 onClick={() => setTheme(theme === "light" ? "dark" : "light")}
               >
                 <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -137,7 +132,7 @@ export default function Navbar() {
                   </NavLink>
                   <Button
                     variant="ghost"
-                    className="hidden md:block"
+                    className="hidden md:flex"
                     size="icon"
                     onClick={handleSignout}
                   >
@@ -176,7 +171,7 @@ export default function Navbar() {
         >
           <SheetContent
             side="right"
-            className="w-[300px] bg-background z-50"
+            className="bg-background z-50"
             onClose={() => setMobileMenuOpen(false)}
           >
             <SheetHeader>

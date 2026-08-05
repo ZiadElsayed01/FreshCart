@@ -53,8 +53,8 @@ export default function Login() {
 
   let formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: "ziadelsayed046@gmail.com",
+      password: "Ziad100",
     },
     validationSchema,
     onSubmit: handleLogin,
