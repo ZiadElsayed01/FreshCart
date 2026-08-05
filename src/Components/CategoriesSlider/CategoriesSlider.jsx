@@ -73,11 +73,11 @@ export default function CategoriesSlider() {
   return (
     <div className="py-8">
       <div className="max-w-screen-xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-center md:justify-between mb-6">
           <h2 className="text-2xl font-bold text-primary">
             Shop Popular Categories
           </h2>
-          <Badge variant="secondary" className="text-sm">
+          <Badge variant="secondary" className="text-sm hidden md:block">
             {categories.length} Categories
           </Badge>
         </div>

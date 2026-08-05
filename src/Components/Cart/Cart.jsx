@@ -327,7 +327,7 @@ export default function Cart() {
                 Looks like you haven&apos;t added any items to your cart yet.
               </p>
               <Button asChild>
-                <Link to="/products">
+                <Link to="/products" className="flex items-center">
                   Start Shopping
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

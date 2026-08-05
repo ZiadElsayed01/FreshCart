@@ -68,7 +68,7 @@ export default function Categories() {
 
   return (
     <div className="py-8 min-h-screen">
-      <div className="max-w-screen-xl mx-auto px-4">
+      <div className="max-w-screen-xl mx-auto">
         <h1 className="text-4xl font-bold text-primary mb-2 text-center">
           Categories
         </h1>

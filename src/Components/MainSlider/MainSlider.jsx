@@ -79,8 +79,8 @@ function CustomNextArrow(props) {
 
 export default function MainSlider() {
   return (
-    <div className="slider-container py-6">
-      <div className="flex flex-col lg:flex-row gap-4">
+    <div className="slider-container pb-0 pt-6 lg:py-6">
+      <div className="flex flex-col lg:flex-row gap-0 lg:gap-4">
         {/* Main Slider */}
         <div className="w-full lg:w-3/4">
           <Card className="overflow-hidden border-0 shadow-lg">
@@ -105,7 +105,7 @@ export default function MainSlider() {
         </div>
 
         {/* Side Banners */}
-        <div className="w-full lg:w-1/4 flex flex-col gap-4">
+        <div className="w-full lg:w-1/4 flex-col gap-4 hidden lg:flex">
           <Card className="overflow-hidden border-0 shadow-lg flex-1">
             <img
               className="w-full h-full min-h-[120px] md:min-h-[170px] lg:min-h-[215px] object-cover hover:scale-105 transition-transform duration-300"

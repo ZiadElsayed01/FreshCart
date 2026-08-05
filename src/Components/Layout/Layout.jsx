@@ -15,7 +15,7 @@ export default function Layout() {
   return (
     <>
       {!isAuthPage && <Navbar />}
-      <div className="container px-3 md:px-2 mx-auto max-w-screen-xl">
+      <div className="px-6 mx-auto min-w-screen-xl">
         <Outlet />
       </div>
       {!isAuthPage && <Footer />}

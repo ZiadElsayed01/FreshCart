@@ -69,7 +69,7 @@ export default function Wishlist() {
 
   return (
     <div className="py-8 min-h-screen">
-      <div className="max-w-screen-xl mx-auto px-4">
+      <div className="max-w-screen-xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-primary mb-2">My Wishlist</h1>
           <p className="text-muted-foreground">
@@ -167,7 +167,7 @@ export default function Wishlist() {
                 Save items you love by clicking the heart icon on products.
               </p>
               <Button asChild>
-                <Link to="/products">
+                <Link to="/products" className="flex items-center">
                   Browse Products
                   <ShoppingCart className="ml-2 h-4 w-4" />
                 </Link>

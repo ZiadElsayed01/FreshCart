@@ -55,7 +55,7 @@ export default function AllOrders() {
 
   return (
     <div className="py-8 min-h-screen">
-      <div className="max-w-screen-xl mx-auto px-4">
+      <div className="max-w-screen-xl mx-auto">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-primary mb-2">My Orders</h1>
           <p className="text-muted-foreground">

@@ -20,7 +20,7 @@ const Sheet = ({ open, onOpenChange, children, className, side = "right" }) => {
       />
       <div
         className={cn(
-          "fixed z-50 border bg-background p-6 shadow-lg transition-all",
+          "fixed z-50 border bg-background shadow-lg transition-all",
           sideClasses[side],
           className,
         )}
@@ -53,16 +53,14 @@ const SheetDescription = ({ className, children }) => (
 );
 
 const SheetContent = ({ className, children, onClose }) => (
-  <div className={cn("relative h-full flex flex-col", className)}>
-    {onClose && (
-      <button
-        onClick={onClose}
-        className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-      >
-        <X className="h-4 w-4" />
-        <span className="sr-only">Close</span>
-      </button>
-    )}
+  <div className={cn("relative h-full flex flex-col p-6", className)}>
+    <button
+      onClick={onClose}
+      className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+    >
+      <X className="h-4 w-4" />
+      <span className="sr-only">Close</span>
+    </button>
     {children}
   </div>
 );
