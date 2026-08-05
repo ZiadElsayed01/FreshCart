@@ -20,7 +20,7 @@ var settings = {
 export default function MainSlider() {
   return (
     <div className="slider-container pb-0 pt-6 lg:py-6 max-w-screen-xl mx-auto">
-      <div className="flex flex-col lg:flex-row gap-0 lg:gap-4">
+      <div className="flex flex-col lg:flex-row gap-4">
         {/* Main Slider */}
         <div className="w-full lg:w-3/4">
           <Card className="overflow-hidden border-0 shadow-lg">
@@ -38,7 +38,7 @@ export default function MainSlider() {
                   <p className="text-lg md:text-xl mb-6 text-center max-w-lg">
                     Discover amazing products at unbeatable prices.
                   </p>
-                  <button className="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300">
+                  <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300">
                     I&apos;m buying!
                   </button>
                 </div>
@@ -56,7 +56,7 @@ export default function MainSlider() {
                   <p className="text-lg md:text-xl mb-6 text-center max-w-lg">
                     Discover amazing products at unbeatable prices.
                   </p>
-                  <button className="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300">
+                  <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300">
                     I&apos;m buying!
                   </button>
                 </div>
@@ -74,7 +74,7 @@ export default function MainSlider() {
                   <p className="text-lg md:text-xl mb-6 text-center max-w-lg">
                     Discover amazing products at unbeatable prices.
                   </p>
-                  <button className="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300">
+                  <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300">
                     I&apos;m buying!
                   </button>
                 </div>
