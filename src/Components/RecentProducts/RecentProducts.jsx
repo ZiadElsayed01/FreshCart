@@ -243,7 +243,7 @@ export default function RecentProducts() {
                         </Badge>
                         {product.priceAfterDiscount && (
                           <Badge
-                            className="bg-red-500 hover:bg-red-600"
+                            className="bg-red-500 hover:bg-red-600 w-fit"
                             variant="destructive"
                           >
                             {Math.round(
@@ -282,7 +282,7 @@ export default function RecentProducts() {
                     <Link
                       to={`/productdetails/${product.id}/${product.category.name}`}
                     >
-                      <h3 className="font-semibold text-lg mb-2 line-clamp-2 hover:text-primary transition-colors">
+                      <h3 className="font-semibold text-lg mb-2 line-clamp-1 hover:text-primary transition-colors">
                         {product.title}
                       </h3>
                     </Link>

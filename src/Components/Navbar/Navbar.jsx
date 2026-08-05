@@ -56,7 +56,7 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-        <div className="max-w-screen-xl mx-auto px-6">
+        <div className="max-w-screen-xl mx-auto px-6 2xl:px-0">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
