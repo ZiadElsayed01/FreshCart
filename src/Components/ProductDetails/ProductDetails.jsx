@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -77,19 +77,19 @@ export default function ProductDetails() {
       });
   }
 
-  function getProducts() {
+  const getProducts = useCallback(() => {
     axios.get(`https://ecommerce.routemisr.com/api/v1/products`).then((res) => {
       let related = res.data.data.filter(
         (product) => product.category.name == category,
       );
       setrelatedproducts(related);
     });
-  }
+  }, [category]);
 
   useEffect(() => {
     getProductsDetails(id);
     getProducts();
-  }, [id, category]);
+  }, [id, category, getProducts]);
 
   // Add to recently viewed when product is loaded
   useEffect(() => {
