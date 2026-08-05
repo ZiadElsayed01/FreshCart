@@ -16,7 +16,7 @@ import { PasswordInput } from "../ui/password-input";
 import { Loader2, LogIn, AlertCircle, Moon, Sun } from "lucide-react";
 import { Alert, AlertDescription } from "../ui/alert";
 import loginImage from "../../assets/login.svg";
-import { useTheme } from "../../context/ThemeContext";
+import { useTheme } from "../../Context/ThemeContext";
 
 export default function Login() {
   const [APIError, setAPIError] = useState("");

@@ -16,7 +16,7 @@ import {
   Sun,
 } from "lucide-react";
 import { cn } from "../../lib/utils";
-import { useTheme } from "../../context/ThemeContext";
+import { useTheme } from "../../Context/ThemeContext";
 
 export default function Navbar() {
   const [user, setUser] = useState(

@@ -16,7 +16,7 @@ import { PasswordInput } from "../ui/password-input";
 import { Loader2, UserPlus, AlertCircle, Moon, Sun } from "lucide-react";
 import { Alert, AlertDescription } from "../ui/alert";
 import registerImage from "../../assets/register.svg";
-import { useTheme } from "../../context/ThemeContext";
+import { useTheme } from "../../Context/ThemeContext";
 
 export default function Register() {
   const [APIError, setAPIError] = useState("");
