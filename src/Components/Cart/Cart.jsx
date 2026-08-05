@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
+import { Skeleton } from "../ui/skeleton";
 import {
   Minus,
   Plus,
@@ -108,8 +109,52 @@ export default function Cart() {
           <p className="text-muted-foreground">Items in your cart</p>
         </div>
         {loading ? (
-          <div className="flex items-center justify-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-4">
+              <Card>
+                <CardHeader>
+                  <Skeleton className="h-6 w-48" />
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i}>
+                      <div className="flex gap-4">
+                        <Skeleton className="w-24 h-24 rounded-lg" />
+                        <div className="flex-1 space-y-2">
+                          <Skeleton className="h-5 w-3/4" />
+                          <Skeleton className="h-5 w-20" />
+                          <Skeleton className="h-5 w-32" />
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <Skeleton className="h-8 w-8 rounded" />
+                              <Skeleton className="h-4 w-8" />
+                              <Skeleton className="h-8 w-8 rounded" />
+                            </div>
+                            <Skeleton className="h-9 w-20" />
+                          </div>
+                        </div>
+                      </div>
+                      <Separator className="mt-4" />
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </div>
+            <div className="lg:col-span-1">
+              <Card className="sticky top-20">
+                <CardHeader>
+                  <Skeleton className="h-6 w-32" />
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Skeleton className="h-5 w-full" />
+                  <Skeleton className="h-5 w-full" />
+                  <Separator />
+                  <Skeleton className="h-6 w-full" />
+                  <Skeleton className="h-10 w-full" />
+                  <Skeleton className="h-12 w-full" />
+                </CardContent>
+              </Card>
+            </div>
           </div>
         ) : cartDetails?.products?.length > 0 ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
