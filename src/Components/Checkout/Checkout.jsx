@@ -7,11 +7,11 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "../../components/ui/card";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import { Label } from "../../components/ui/label";
-import { Textarea } from "../../components/ui/textarea";
+} from "../../Components/ui/card";
+import { Button } from "../../Components/ui/button";
+import { Input } from "../../Components/ui/input";
+import { Label } from "../../Components/ui/label";
+import { Textarea } from "../../Components/ui/textarea";
 import { Loader2, MapPin, Phone, FileText } from "lucide-react";
 import { cn } from "../../lib/utils";
 

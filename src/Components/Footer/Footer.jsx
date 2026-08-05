@@ -4,9 +4,9 @@ import img3 from "../../assets/master_card.png";
 import img4 from "../../assets/pay_pal.png";
 import img5 from "../../assets/app_store.png";
 import img6 from "../../assets/and.png";
-import { Input } from "../../components/ui/input";
-import { Button } from "../../components/ui/button";
-import { Separator } from "../../components/ui/separator";
+import { Input } from "../../Components/ui/input";
+import { Button } from "../../Components/ui/button";
+import { Separator } from "../../Components/ui/separator";
 import { Mail, Smartphone, CreditCard } from "lucide-react";
 
 export default function Footer() {

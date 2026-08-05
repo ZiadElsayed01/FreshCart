@@ -5,18 +5,18 @@ import { CartContext } from "../../Context/CartContenxt";
 import { WishContext } from "../../Context/WishContext";
 import { SearchContext } from "../../Context/SearchContext";
 import toast from "react-hot-toast";
-import { Card, CardContent, CardFooter } from "../../components/ui/card";
-import { Button } from "../../components/ui/button";
-import { Badge } from "../../components/ui/badge";
-import { Separator } from "../../components/ui/separator";
-import { Skeleton } from "../../components/ui/skeleton";
+import { Card, CardContent, CardFooter } from "../../Components/ui/card";
+import { Button } from "../../Components/ui/button";
+import { Badge } from "../../Components/ui/badge";
+import { Separator } from "../../Components/ui/separator";
+import { Skeleton } from "../../Components/ui/skeleton";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from "../../components/ui/dropdown-menu";
+} from "../../Components/ui/dropdown-menu";
 import {
   ShoppingCart,
   Heart,

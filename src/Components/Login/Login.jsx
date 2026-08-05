@@ -9,9 +9,9 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-} from "../../components/ui/card";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
+} from "../../Components/ui/card";
+import { Button } from "../../Components/ui/button";
+import { Input } from "../../Components/ui/input";
 import { Loader2, LogIn, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "../../Components/ui/alert";
 

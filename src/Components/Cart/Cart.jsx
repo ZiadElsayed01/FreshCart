@@ -7,10 +7,10 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "../../components/ui/card";
-import { Button } from "../../components/ui/button";
-import { Badge } from "../../components/ui/badge";
-import { Separator } from "../../components/ui/separator";
+} from "../../Components/ui/card";
+import { Button } from "../../Components/ui/button";
+import { Badge } from "../../Components/ui/badge";
+import { Separator } from "../../Components/ui/separator";
 import {
   Minus,
   Plus,
@@ -34,22 +34,6 @@ export default function Cart() {
   const [loading, setLoading] = useState(true);
   const [updatingProductId, setUpdatingProductId] = useState(null);
   const [clearingCart, setClearingCart] = useState(false);
-
-  async function getCartItems() {
-    setLoading(true);
-    try {
-      const response = await getUserCart();
-      if (response?.data?.status === "success") {
-        setCartDetails(response.data.data);
-      } else {
-        toast.error("Failed to load cart items.");
-      }
-    } catch {
-      toast.error("An error occurred while loading cart items.");
-    } finally {
-      setLoading(false);
-    }
-  }
 
   async function updateProduct(id, count) {
     if (count < 1) return;
@@ -102,8 +86,24 @@ export default function Cart() {
   }
 
   useEffect(() => {
+    async function getCartItems() {
+      setLoading(true);
+      try {
+        const response = await getUserCart();
+        if (response?.data?.status === "success") {
+          setCartDetails(response.data.data);
+        } else {
+          toast.error("Failed to load cart items.");
+        }
+      } catch {
+        toast.error("An error occurred while loading cart items.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
     getCartItems();
-  }, []);
+  }, [getUserCart]);
 
   return (
     <div className="py-8 px-4">
@@ -280,7 +280,7 @@ export default function Cart() {
               <ShoppingCart className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
               <h2 className="text-2xl font-bold mb-2">Your cart is empty</h2>
               <p className="text-muted-foreground mb-6">
-                Looks like you haven't added any items to your cart yet.
+                Looks like you haven&apos;t added any items to your cart yet.
               </p>
               <Button asChild>
                 <Link to="/products">
