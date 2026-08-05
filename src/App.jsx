@@ -20,9 +20,9 @@ import ResetPassword from "./Components/ResetPassword/ResetPassword";
 import Wishlist from "./Components/Wishlist/Wishlist";
 import WishContextProvider from "./Context/WishContext";
 import SearchContextProvider from "./Context/SearchContext";
-import { ThemeProvider } from "./context/ThemeContext";
-import { RecentlyViewedContextProvider } from "./context/RecentlyViewedContext";
-import { ReviewsContextProvider } from "./context/ReviewsContext";
+import { ThemeProvider } from "./Context/ThemeContext";
+import { RecentlyViewedContextProvider } from "./Context/RecentlyViewedContext";
+import { ReviewsContextProvider } from "./Context/ReviewsContext";
 
 let paths = createBrowserRouter([
   {
