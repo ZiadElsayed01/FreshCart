@@ -1,4 +1,10 @@
-import { createContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import axios from "axios";
 
 export let WishContext = createContext();
@@ -6,9 +12,12 @@ export let WishContext = createContext();
 export default function WishContextProvider(props) {
   const [wishItems, setwishItems] = useState(0);
 
-  const headers = {
-    token: localStorage.getItem("userToken"),
-  };
+  const headers = useMemo(
+    () => ({
+      token: localStorage.getItem("userToken"),
+    }),
+    [],
+  );
 
   function addProductToWish(productId) {
     return axios
@@ -19,7 +28,7 @@ export default function WishContextProvider(props) {
         },
         {
           headers,
-        }
+        },
       )
       .then((res) => res)
       .catch((err) => err);
@@ -34,7 +43,7 @@ export default function WishContextProvider(props) {
       .catch((err) => err);
   }
 
-  function getUserWish() {
+  const getUserWish = useCallback(() => {
     return axios
       .get(`https://ecommerce.routemisr.com/api/v1/wishlist`, {
         headers,
@@ -44,11 +53,11 @@ export default function WishContextProvider(props) {
         return res;
       })
       .catch((err) => err);
-  }
+  }, [headers]);
 
   useEffect(() => {
     getUserWish();
-  }, []);
+  }, [getUserWish]);
 
   return (
     <WishContext.Provider
